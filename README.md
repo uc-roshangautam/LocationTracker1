@@ -279,23 +279,3 @@ When contributing to this project:
 4. Test on multiple platforms if possible
 5. Update README for new features
 
-## 📄 License
-
-[Specify your license here - e.g., MIT, Apache 2.0, etc.]
-
-## 👨‍💻 Author
-
-[Your name/organization]
-
-## 🙏 Acknowledgments
-
-- Built with [.NET MAUI](https://dotnet.microsoft.com/apps/maui)
-- Maps powered by [MAUI Maps](https://learn.microsoft.com/dotnet/maui/user-interface/controls/map)
-- Database by [SQLite](https://www.sqlite.org/)
-- SQLite-net library by [praeclarum](https://github.com/praeclarum/sqlite-net)
-
----
-
-**Last Updated**: December 2025  
-**Version**: 1.0.0
-
