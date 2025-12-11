@@ -239,5 +239,90 @@ namespace LocationTracker1
         {
             StatusLabel.Text = _viewModel.StatusMessage;
         }
+
+        /// <summary>
+        /// Handles the click event for the demo button.
+        /// Adds simulated location data to demonstrate the heat map visualization.
+        /// Creates a realistic walking path pattern.
+        /// </summary>
+        /// <param name="sender">The button that triggered the event.</param>
+        /// <param name="e">Event arguments.</param>
+        private async void OnDemoClicked(object sender, EventArgs e)
+        {
+            await DisplayAlertAsync("Demo Mode", 
+                "This will add a realistic walking path with 20 location points to demonstrate the heat map visualization with color gradients (blue→yellow→red).", 
+                "OK");
+            
+            // Get current location or use default
+            var currentLat = 27.7172;
+            var currentLon = 85.3240;
+            
+            try
+            {
+                var location = await Geolocation.Default.GetLastKnownLocationAsync();
+                if (location != null)
+                {
+                    currentLat = location.Latitude;
+                    currentLon = location.Longitude;
+                }
+            }
+            catch { }
+            
+            // Create a realistic walking path - like walking around a block/campus
+            // This simulates: Start → Walk North → Turn East → Walk South → Turn West → Return
+            var demoLocations = new[]
+            {
+                // Starting point
+                (currentLat, currentLon),
+                
+                // Walk north along a street (5 points)
+                (currentLat + 0.0005, currentLon + 0.0001),
+                (currentLat + 0.001, currentLon + 0.0002),
+                (currentLat + 0.0015, currentLon + 0.0003),
+                (currentLat + 0.002, currentLon + 0.0003),
+                
+                // Turn right and walk east (4 points)
+                (currentLat + 0.0021, currentLon + 0.0008),
+                (currentLat + 0.0022, currentLon + 0.0013),
+                (currentLat + 0.0022, currentLon + 0.0018),
+                (currentLat + 0.0021, currentLon + 0.0023),
+                
+                // Turn right and walk south (5 points)
+                (currentLat + 0.0016, currentLon + 0.0024),
+                (currentLat + 0.0011, currentLon + 0.0025),
+                (currentLat + 0.0006, currentLon + 0.0025),
+                (currentLat + 0.0001, currentLon + 0.0024),
+                (currentLat - 0.0003, currentLon + 0.0023),
+                
+                // Turn right and walk west back towards start (5 points)
+                (currentLat - 0.0004, currentLon + 0.0018),
+                (currentLat - 0.0004, currentLon + 0.0013),
+                (currentLat - 0.0003, currentLon + 0.0008),
+                (currentLat - 0.0002, currentLon + 0.0004),
+                
+                // Return to near starting point
+                (currentLat - 0.0001, currentLon + 0.0001),
+                (currentLat, currentLon)
+            };
+            
+            // Timestamps: simulate a 40-minute walk (2 minutes between each point)
+            var startTime = DateTime.UtcNow.AddMinutes(-40);
+            
+            for (int i = 0; i < demoLocations.Length; i++)
+            {
+                var locationData = new Models.LocationData
+                {
+                    Latitude = demoLocations[i].Item1,
+                    Longitude = demoLocations[i].Item2,
+                    Timestamp = startTime.AddMinutes(i * 2), // 2 minutes apart
+                    Accuracy = 5.0 + (i % 4) // Varies between 5-8 meters
+                };
+                
+                await _viewModel.AddDemoLocationAsync(locationData);
+            }
+            
+            StatusLabel.Text = $"Added {demoLocations.Length} demo locations - realistic walking path!";
+            UpdateMapPins();
+        }
     }
 }

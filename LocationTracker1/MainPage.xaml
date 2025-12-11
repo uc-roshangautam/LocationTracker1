@@ -32,6 +32,12 @@
             <Button Text="Refresh Map" 
                     Clicked="OnRefreshClicked"
                     WidthRequest="120"/>
+            <!-- Demo mode button for screenshots -->
+            <Button Text="Add Demo Data" 
+                    Clicked="OnDemoClicked"
+                    BackgroundColor="DarkGreen"
+                    TextColor="White"
+                    WidthRequest="130"/>
         </HorizontalStackLayout>
 
         <!-- Row 1: Map display with pins and heat map visualization -->

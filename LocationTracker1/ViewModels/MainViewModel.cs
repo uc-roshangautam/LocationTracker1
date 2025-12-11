@@ -171,8 +171,14 @@ namespace LocationTracker1.ViewModels
             {
                 try
                 {
+                    StatusMessage = "Getting location...";
+                    System.Diagnostics.Debug.WriteLine($"[LocationTracker] Requesting location at {DateTime.Now:HH:mm:ss}");
+                    
                     // Get current device location
                     var location = await _locationService.GetCurrentLocationAsync();
+                    
+                    System.Diagnostics.Debug.WriteLine($"[LocationTracker] Location result: {(location != null ? $"Lat={location.Latitude:F4}, Lon={location.Longitude:F4}" : "NULL")}");
+                    
                     if (location != null)
                     {
                         // Create location data entry
@@ -186,8 +192,14 @@ namespace LocationTracker1.ViewModels
                         // Save to database and update collection
                         await _databaseService.SaveLocationAsync(locationData);
                         Locations.Add(locationData);
-                        StatusMessage = $"Captured: {location.Latitude:F4}, {location.Longitude:F4}";
+                        StatusMessage = $"Captured: {location.Latitude:F4}, {location.Longitude:F4} (Total: {Locations.Count})";
+                        System.Diagnostics.Debug.WriteLine($"[LocationTracker] Saved location. Total count: {Locations.Count}");
                         LocationsUpdated?.Invoke();
+                    }
+                    else
+                    {
+                        StatusMessage = "Location unavailable - check permissions and location services";
+                        System.Diagnostics.Debug.WriteLine("[LocationTracker] Location was null!");
                     }
 
                     // Wait 5 seconds before next capture
@@ -195,11 +207,13 @@ namespace LocationTracker1.ViewModels
                 }
                 catch (TaskCanceledException)
                 {
+                    System.Diagnostics.Debug.WriteLine("[LocationTracker] Tracking cancelled");
                     break;
                 }
                 catch (Exception ex)
                 {
                     StatusMessage = $"Error: {ex.Message}";
+                    System.Diagnostics.Debug.WriteLine($"[LocationTracker] Error: {ex}");
                 }
             }
         }
@@ -213,6 +227,19 @@ namespace LocationTracker1.ViewModels
             await _databaseService.ClearAllLocationsAsync();
             Locations.Clear();
             StatusMessage = "All locations cleared";
+            LocationsUpdated?.Invoke();
+        }
+
+        /// <summary>
+        /// Adds a demo/test location to the collection and database.
+        /// Used for demonstrating the heat map visualization.
+        /// </summary>
+        /// <param name="locationData">The demo location data to add.</param>
+        /// <returns>A task representing the asynchronous operation.</returns>
+        public async Task AddDemoLocationAsync(LocationData locationData)
+        {
+            await _databaseService.SaveLocationAsync(locationData);
+            Locations.Add(locationData);
             LocationsUpdated?.Invoke();
         }
 
