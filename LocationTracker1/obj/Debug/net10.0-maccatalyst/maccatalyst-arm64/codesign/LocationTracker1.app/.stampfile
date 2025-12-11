@@ -1,0 +1,1 @@
+-v --force --timestamp=none --sign - --entitlements /Users/roshangautam/Downloads/LocationTracker1/LocationTracker1/obj/Debug/net10.0-maccatalyst/maccatalyst-arm64/Entitlements.xcent /Users/roshangautam/Downloads/LocationTracker1/LocationTracker1/bin/Debug/net10.0-maccatalyst/maccatalyst-arm64/LocationTracker1.app

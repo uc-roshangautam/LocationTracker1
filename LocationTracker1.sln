@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36717.8 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocationTracker1", "LocationTracker1\LocationTracker1.csproj", "{9FA20FC6-EC3A-43F5-9063-5951567B9BCF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9FA20FC6-EC3A-43F5-9063-5951567B9BCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FA20FC6-EC3A-43F5-9063-5951567B9BCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FA20FC6-EC3A-43F5-9063-5951567B9BCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FA20FC6-EC3A-43F5-9063-5951567B9BCF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {03172AF5-AB69-43B6-9EF4-62031ABE0EF4}
+	EndGlobalSection
+EndGlobal
