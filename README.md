@@ -6,10 +6,7 @@ A cross-platform location tracking application built with C# and .NET MAUI that 
 
 ## 📋 Overview
 
-This application tracks the user's geographical location at regular intervals, stores the data in a local SQLite database, and displays the locations on an interactive map with a heat map visualization. The heat map uses color gradients to show temporal information:
-- **Blue (Cool)**: Oldest tracked locations
-- **Yellow (Warm)**: Middle-aged tracked locations  
-- **Red (Hot)**: Most recent tracked locations
+This application tracks the user's geographical location at regular intervals, stores the data in a local SQLite database, and displays the locations on an interactive map with a heat map visualization. The heat map uses color gradients to show temporal information
 
 ## 🎯 Features
 
@@ -234,27 +231,6 @@ SQLite database: `locations.db3`
 | Timestamp | TEXT     | NOT NULL (ISO 8601)   |
 | Accuracy  | REAL     | NULLABLE              |
 
-## 🐛 Troubleshooting
-
-### Location Not Updating
-- Ensure location services are enabled on your device
-- Check that the app has location permissions granted
-- Verify GPS signal strength (may not work indoors)
-
-### Map Not Displaying
-- Check internet connection (maps require data)
-- Verify MAUI Maps package is installed
-- Ensure platform-specific map services are configured
-
-### Build Errors
-- Clean solution: Build → Clean Solution
-- Restore NuGet packages: Tools → NuGet Package Manager → Restore
-- Verify .NET MAUI workload: `dotnet workload list`
-
-### App Crashes on Startup
-- Check that SQLite packages are properly installed
-- Verify app has write permissions to AppDataDirectory
-- Review debug logs in Output window
 
 ## 📝 Future Enhancements
 
